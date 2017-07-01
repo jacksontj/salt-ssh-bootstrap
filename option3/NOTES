@@ -1,0 +1,35 @@
+salt-ssh -c ~/src/salt-ssh-bootstrap/option3/ssh/etc/salt master test.ping
+
+# Note: you have to be *in* the directory for the relative path in master config to work properly
+# seems like -c isn't getting passed where it should be
+
+# Docs on this setup
+https://docs.saltstack.com/en/latest/topics/tutorials/multimaster.html#prepping-a-redundant-master
+
+Notes:
+    - this shares the keypair across all masters-- which is less than ideal, there is a mechanism to sign
+        the master keys (http://docs.saltstack.com/en/latest/topics/tutorials/multimaster_pki.html) -- which
+        seems a bit convoluted on its face (since at that point you should just have certs)
+    -
+
+TODO:
+    - share job cache across masters
+    - template minion config based on the assigned masters
+
+
+
+dockerfile
+    apt-get update
+    apt-get install -y net-tools openssh-server python
+    mkdir -p /root/.ssh/
+    echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLnXw2BYiv3YhQOzf/zuzKgJDuaq05cgPis5Rlf1iFD7im+GGoSSuYdOguuCW+rWSyaHM0541H+VGn0OCqmngTmAVAyyYFrLWlQBJXiYd+MxbmmlW87eRkL/cmDm4B07TLVzYWX8S+qzKp9NfRDmX0Bh2Mowil9cGAqUF3ZpfYKx2nTy1K2aXH0jEPKfqyq5qULRyurIIdEkOAjUfUcmXifnqxhCaTT2eP7hjQVCZjgixE22uPzKd3h3leauhpEGQdZFarAzgm+THcQgeFpx4g+lwm3lhFll33ZX17wYhaXcaytJw3z0c5GoGrWHTRqMKsls7IMDI1X/g/yZxDpqjV jacksontj@Thomas-PC.jacksontj.dyndns.org' > /root/.ssh/authorized_keys
+    /etc/init.d/ssh start
+    echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLnXw2BYiv3YhQOzf/zuzKgJDuaq05cgPis5Rlf1iFD7im+GGoSSuYdOguuCW+rWSyaHM0541H+VGn0OCqmngTmAVAyyYFrLWlQBJXiYd+MxbmmlW87eRkL/cmDm4B07TLVzYWX8S+qzKp9NfRDmX0Bh2Mowil9cGAqUF3ZpfYKx2nTy1K2aXH0jEPKfqyq5qULRyurIIdEkOAjUfUcmXifnqxhCaTT2eP7hjQVCZjgixE22uPzKd3h3leauhpEGQdZFarAzgm+THcQgeFpx4g+lwm3lhFll33ZX17wYhaXcaytJw3z0c5GoGrWHTRqMKsls7IMDI1X/g/yZxDpqjV jacksontj@Thomas-PC.jacksontj.dyndns.org' > /root/.ssh/authorized_keys
+
+
+
+
+
+wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+
+

@@ -1,0 +1,11 @@
+cleanup master configuration
+    - should be a slimmer set of things we actually need
+    - disable auto_accept
+    - shared job_cache
+
+syndic bugs:
+    - tcp transport can't handle list targets through a syndic
+        -- right now the tcp transport in a list situation just finds the clients for that
+            we can either maintain the presence map *through* the syndic, or track the
+            syndics separately so that we broadcast things to syndic if the target isn't
+            directly connected

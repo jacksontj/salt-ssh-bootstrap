@@ -1,0 +1,11 @@
+master-1:
+  host: 172.17.0.2
+  user: root
+
+master-2:
+  host: 172.17.0.4
+  user: root
+
+minion:
+  host: 172.17.0.3
+  user: root
