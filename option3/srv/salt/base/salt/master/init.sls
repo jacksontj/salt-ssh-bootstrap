@@ -5,12 +5,13 @@ include:
 /etc/salt/master:
   file.managed:
     # TODO: put files in a nicer layout
+    - makedirs: True
     - source: salt://salt/master/conf/master
     - template: jinja
 
 python-git:
   pkg.installed:
-    - version: _1.0.1+git137-gc8b8379-2.1
+    - version: 1.0.1+git137-gc8b8379-2.1
 
 python-setproctitle:
   pkg.installed:
